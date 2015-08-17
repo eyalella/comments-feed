@@ -6,3 +6,9 @@ Include
 * React
 * Flux
 * Gulp
+
+Install:
+`npm install'
+
+Run
+`gulp`
