@@ -8,7 +8,9 @@ Include
 * Gulp
 
 Install:
-`npm install'
 
-Run
+`npm install`
+
+Run Server + Watch:
+
 `gulp`
