@@ -9,8 +9,8 @@ Include
 
 Install:
 
-`npm install`
+	npm install
 
 Run Server + Watch:
 
-`gulp`
+	gulp
