@@ -5,13 +5,19 @@ var source = require('vinyl-source-stream');
 var sass = require('gulp-sass');
 var sourcemaps = require('gulp-sourcemaps');
 var jslint = require('gulp-jslint');
+var ghPages = require('gulp-gh-pages');
+
+gulp.task('deploy', function() {
+  return gulp.src('./dist/**/*')
+    .pipe(ghPages());
+});
 
 gulp.task('sass', function () {
   gulp.src('./src/js/components/*.scss')
     .pipe(sourcemaps.init())
     .pipe(sass().on('error', sass.logError))
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest('dist/css'));
+    .pipe(gulp.dest('/dist/css'));
 });
 
 gulp.task('browserify', function() {
