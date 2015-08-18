@@ -1,31 +1,48 @@
 var gulp = require('gulp');
-var browserify = require('browserify');
-var reactify = require('reactify');
-var source = require('vinyl-source-stream');
-var sass = require('gulp-sass');
-var sourcemaps = require('gulp-sourcemaps');
-var jslint = require('gulp-jslint');
+var gulpsync = require('gulp-sync')(gulp);
+var webpack = require("webpack");
+var gutil = require("gulp-util");
 var ghPages = require('gulp-gh-pages');
+var env = require('gulp-env');
+var webpack = require("webpack");
+var WebpackDevServer = require("webpack-dev-server");
+var webpackConfigGetter = require('./webpack.config.getter');
 
-gulp.task('deploy', function() {
-  return gulp.src('./dist/**/*')
-    .pipe(ghPages());
+var paths = {
+  publicContentBase : "dist/",
+  publicJsPath: "/js/",
+  jsSources: "src/**/*"
+}
+
+/*** DEFAULT TASK ***/
+
+gulp.task('default', ['webpack:dev-server', 'copy']);
+
+
+/*** DEVELOPMENT BUILD + SERVER ***/
+
+gulp.task("build-dev-server", sync("set-dev-env", "webpack:dev-server"));
+
+gulp.task("webpack:dev-server", function(callback) {
+  // modify some webpack config options
+  var config = webpackConfigGetter();
+  config.devtool = "eval";
+
+  // Start a webpack-dev-server
+  new WebpackDevServer(webpack(config), {
+    publicPath: paths.publicJsPath,
+    contentBase : paths.publicContentBase,
+    stats: {
+      colors: true
+    }
+  }).listen(8181, "localhost", function(err) {
+    if(err) throw new gutil.PluginError("webpack:dev-server", err);
+    gutil.log("[webpack-dev-server]", "http://localhost:8181");
+  });
 });
 
-gulp.task('sass', function () {
-  gulp.src('./src/js/components/*.scss')
-    .pipe(sourcemaps.init())
-    .pipe(sass().on('error', sass.logError))
-    .pipe(sourcemaps.write())
-    .pipe(gulp.dest('/dist/css'));
-});
-
-gulp.task('browserify', function() {
-	browserify('./src/js/main.js')
-		.transform('reactify')
-		.bundle()
-		.pipe(source('main.js'))
-		.pipe(gulp.dest('dist/js'));
+gulp.task('set-dev-env', function() {
+  setEnv('DEV');
 });
 
 gulp.task('copy', function() {
@@ -36,15 +53,43 @@ gulp.task('copy', function() {
 		.pipe(gulp.dest('dist/assets'));
 });
 
-gulp.task('default', ['browserify', 'copy'], function(){
-	gulp.watch('src/**/*.*', ['browserify', 'copy']);
-	gulp.watch('./src/js/components/*.scss', ['sass']);
-	
-	gulp.src(['source.js'])
-        .pipe(jslint({
-            predef: [],
-            reporter: 'default'
-        })).on('error', function (error) {
-            console.error(String(error));
-        });
+
+/*** PRODUCTION BUILD ***/
+
+gulp.task("build", sync("set-prod-env", "webpack:build"));
+
+gulp.task("webpack:build", ["set-prod-env"], function(callback) {
+  // run webpack
+  webpack(webpackConfigGetter("PROD"), function(err, stats) {
+    if(err)
+      throw new gutil.PluginError("webpack:build", err);
+    gutil.log("[webpack:build]", stats.toString({colors: true}));
+    callback();
+  });
 });
+
+gulp.task('set-prod-env', function() {
+  setEnv('PROD');
+});
+
+
+/*** GITHUB PAGES ***/
+
+gulp.task('gh-pages', ["build"], function() {
+  return gulp.src('./dist/**/*')
+    .pipe(ghPages());
+});
+
+/*** HELPER FUNCTIONS ***/
+
+function setEnv(buildEnv){
+  env({
+    vars: {
+      BUILD_ENV: buildEnv
+    }
+  });
+}
+
+function sync(){
+  return gulpsync.sync([].slice.call(arguments));
+}
