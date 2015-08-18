@@ -1,0 +1,36 @@
+{
+  "name": "react-flux-stack",
+  "version": "1.0.0",
+  "description": "Small project with a boilerplate setup.",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "browserify": "^11.0.1",
+    "flux": "^2.0.3",
+    "gulp-gh-pages": "^0.5.2",
+    "gulp": "^3.9.0",
+    "gulp-jslint": "^0.2.2",
+    "gulp-sass": "^2.0.4",
+    "gulp-scss": "^1.2.0",
+    "gulp-sourcemaps": "^1.5.2",
+    "react": "^0.13.3",
+    "react-async": "^2.1.0",
+    "react-router-component": "^0.26.0",
+    "reactify": "^1.1.1",
+    "require": "^2.4.20",
+    "vinyl-source-stream": "^1.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eyalella/react-flux-stack.git"
+  },
+  "author": "Eyal Ella",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eyalella/react-flux-stack/issues"
+  },
+  "homepage": "https://github.com/eyalella/react-flux-stack#readme"
+}
