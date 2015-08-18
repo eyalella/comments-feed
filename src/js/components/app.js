@@ -1,3 +1,4 @@
+var scss = require('./app.scss')
 var React = require('react');
 var Catalog = require('./catalog/app-catalog');
 var Cart = require('./cart/app-cart');

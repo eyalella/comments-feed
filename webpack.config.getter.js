@@ -46,7 +46,7 @@ module.exports = function(BUILD_ENV){
 
   /* ------- */
   return {  
-    entry: resolve('src/main.js'),
+    entry: resolve('src/js/main.js'),
     output: {
       path: resolve('dist/js'),
       filename: 'main.js',
