@@ -1,7 +1,6 @@
 var React = require('react');
 var AppStore = require('../../stores/app-store');
-var AddToCart = require('./app-addtocart');
-var StoreWatchMixin = require('../../mixins/StoreWatchMixin');
+var storeWatchMixin = require('../../mixins/StoreWatchMixin');
 var CatalogItem = require('./app-catalogitem');
 
 function getCatalog() {
@@ -11,7 +10,7 @@ function getCatalog() {
 }
 
 var Catalog = React.createClass({
-	mixins: [StoreWatchMixin(getCatalog)],
+	mixins: [storeWatchMixin(getCatalog)],
 
 	render: function() {
 		var items = this.state.items.map(function(item){

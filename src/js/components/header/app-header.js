@@ -3,10 +3,6 @@ var CartSummery = require('./app-cartsummery');
 
 var Header = React.createClass({
 	render: function() {
-		var CartSummeryStyle = {
-			'float': 'right'
-		}
-
 		return (
 			<div className="row">
 				<div className="col-sm-6">

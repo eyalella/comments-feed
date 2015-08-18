@@ -3,7 +3,7 @@ var AppStore = require('../../stores/app-store');
 var RemoveFromCart = require('./app-removefromcart');
 var Increace = require('./app-increaceitem');
 var Decreace = require('./app-decreaceitem');
-var StoreWatchMixin = require('../../mixins/StoreWatchMixin');
+var storeWatchMixin = require('../../mixins/StoreWatchMixin');
 var Link = require('react-router-component').Link;
 
 function getCart() {
@@ -13,7 +13,7 @@ function getCart() {
 }
 
 var Cart = React.createClass({
-	mixins: [StoreWatchMixin(getCart)],
+	mixins: [storeWatchMixin(getCart)],
 
 	render: function() {
 		var total = 0;
