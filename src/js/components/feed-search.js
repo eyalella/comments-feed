@@ -6,7 +6,7 @@ var TextField = require('material-ui').TextField;
 
 var inputOptions = {
 	hintText: 'Search Email or Message...',
-	floatingLabelText: 'Filter Feed',
+	floatingLabelText: 'Search',
 	type: 'search',
 	rows: 1,
 	fullWidth: true

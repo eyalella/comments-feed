@@ -6,6 +6,7 @@ var FeedComments = require('./feed-comments');
 var FeedStore = require('../stores/feed-store');
 var storeWatchMixin = require('../mixins/StoreWatchMixin');
 var injectTapEventPlugin = require('react-tap-event-plugin');
+var Search = require('./feed-search');
 
 //Needed for onTouchTap 
 //Can go away when react 1.0 release 
@@ -14,17 +15,41 @@ var injectTapEventPlugin = require('react-tap-event-plugin');
 injectTapEventPlugin();
 
 function getComments() {
-	return {feed: FeedStore.getFeed()};
+	return {
+		feed: FeedStore.getFeed(),
+		feedAll: FeedStore.getFeedAll()
+	};
 }
 
 var App = React.createClass({
 	mixins: [storeWatchMixin(getComments)],
 
 	render: function() {
+		var hasComments = this.state.feedAll.length > 0;
+		var result;
+
+		if(hasComments) {
+			result = (
+				<div>
+					<Search />
+					<FeedComments feed={this.state.feed} />
+				</div>
+			)
+		} else {
+			result = (
+				<div>
+					<h3>No posts yet...</h3>
+					<p>Go ahed and try the form to leave a comment!</p>
+				</div>
+			)
+		}
+
 		return (
-			<div>
+			<div className="max-width max-height">
 				<AddComment />
-				<FeedComments feed={this.state.feed} />
+				<div className="results-bg">
+					{result}
+				</div>
 			</div>
 		);
 	}

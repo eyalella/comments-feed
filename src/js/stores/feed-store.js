@@ -22,9 +22,11 @@ function filterResults(query) {
 		visibleComments = [...comments];
 	} else {
 		filterd = true;
+
+		query = query.toLowerCase();
 		comments.forEach(function(comment) {
-			emailMatch = comment.email && comment.email.indexOf(query) > -1;
-			messageMatch = comment.message && comment.message.indexOf(query) > -1;
+			emailMatch = comment.email && comment.email.toLowerCase().indexOf(query) > -1;
+			messageMatch = comment.message && comment.message.toLowerCase().indexOf(query) > -1;
 
 			if(emailMatch || messageMatch) {
 				visibleComments.push(comment);
@@ -54,6 +56,10 @@ var FeedStore = assign(EventEmitter.prototype, {
 
 	getFeed: function() {
 		return getFilterdResults();
+	},
+
+	getFeedAll: function() {
+		return comments;
 	},
 
 	dispatcherIndex: AppDispatcher.register(function(payload){
