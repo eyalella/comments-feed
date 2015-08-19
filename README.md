@@ -1,4 +1,4 @@
-# react-flux-stack
+# Comments Feed
 
 A small - comments feed app - built with React (Flux), Gulp, Webpack and MetirialUI.
 
