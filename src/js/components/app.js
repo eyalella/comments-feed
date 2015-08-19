@@ -1,5 +1,3 @@
-require('./app.scss');
-
 var React = require('react');
 var AddComment = require('./feed-addcomment');
 var FeedComments = require('./feed-comments');
@@ -45,7 +43,7 @@ var App = React.createClass({
 		}
 
 		return (
-			<div className="max-width max-height">
+			<div className="app-position">
 				<AddComment />
 				<div className="results-bg">
 					{result}

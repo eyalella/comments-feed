@@ -3,7 +3,7 @@ var AppActions = require('../actions/app-actions');
 var muiMixin = require('../mixins/muiMixin');
 var TextField = require('material-ui').TextField;
 var FlatButton = require('material-ui').FlatButton;
-var FontIcon = require('material-ui').FontIcon;
+var Dialog = require('material-ui').Dialog;
 
 var inputOptions = {
 	hintText: 'Your Email Address',
@@ -42,6 +42,7 @@ var AddComent = React.createClass({
 		e.preventDefault();
 		
 		if(!this.state || !this.state.email || !this.state.message) {
+			this.refs.dialog.show();
 			return;
 		}
 
@@ -51,18 +52,37 @@ var AddComent = React.createClass({
 		if(validateEmail && validateMessage) {
 			AppActions.addComment(this.state);
 			this.clearMessageInput();
+		} else {
+			this.refs.dialog.show()
 		}
 	},
 
 	render: function() {
+		//Standard Actions
+		var standardActions = [
+		  { text: 'Let me try again' }
+		];
+
 		return (
-			<div id="addCommentForm">
-				<TextField className="" onChange={this.handleEmailChange} {...inputOptions} required="true" />
-				<TextField ref="messageInput" onChange={this.handleMessageChange} {...textareaOptions} />
-				
-				<div className="submit">
-					<FlatButton onClick={this.handleSubmit} label="Submit" secondary={true} />
+			<div>
+				<div id="addCommentForm">
+					<TextField className="icon icon-envelop" onChange={this.handleEmailChange} {...inputOptions} required="true" />
+					<TextField className="icon icon-bubble" ref="messageInput" onChange={this.handleMessageChange} {...textareaOptions} />
+					
+					<div className="submit">
+						<FlatButton onClick={this.handleSubmit} label="Submit" secondary={true} />
+					</div>
 				</div>
+
+
+				<Dialog
+					ref="dialog"
+					title="Validation issue"
+					actions={standardActions}
+					actionFocus="submit">
+					Please make sure to fill the form with the correct information.<br /> <b>You must leave a valid email address and a message</b>. Thanks :)
+				</Dialog>
+
 			</div>
 		);
 	}

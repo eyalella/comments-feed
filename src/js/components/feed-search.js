@@ -22,7 +22,7 @@ var FeedSearch = React.createClass({
 	render: function() {
 		return (
 			<div id="feedSearch">
-				<TextField type="search" {...inputOptions} onChange={this.handleSearch} />
+				<TextField className="icon icon-search" type="search" {...inputOptions} onChange={this.handleSearch} />
 			</div>
 		);
 	}

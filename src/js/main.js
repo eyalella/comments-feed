@@ -1,3 +1,5 @@
+require('./components/app.scss');
+
 var App = require('./components/app');
 var React = require('react');
 

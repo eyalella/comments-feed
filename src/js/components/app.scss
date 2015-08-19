@@ -3,13 +3,52 @@ $form-bg: #FFF;
 $feed-bg: #EFEFEF;
 $form-border: 1px solid #F0F0F0;
 $inner-padding: 20px;
-$max-width: 400px;
+$max-width: 560px;
 $gray: #AFAFAF;
+
+/* FONT ICONS */
+
+@font-face {
+    font-family: 'icomoon';
+    src:url('/assets/icomoon.eot?1hov4h');
+    src:url('/assets/icomoon.eot?#iefix1hov4h') format('embedded-opentype'),
+        url('/assets/icomoon.ttf?1hov4h') format('truetype'),
+        url('/assets/icomoon.woff?1hov4h') format('woff'),
+        url('/assets/icomoon.svg?1hov4h#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+    font-family: 'icomoon';
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-envelop:before {
+    content: "\e600";
+}
+.icon-bubble:before {
+    content: "\e601";
+}
+.icon-search:before {
+    content: "\e602";
+}
+
+
+/* APP STYLE */
 
 #main {
 	background: $bg;
 	width: 100%;
-	padding: 40px;
 	min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -21,6 +60,13 @@ $gray: #AFAFAF;
         padding: $inner-padding;
         background: $feed-bg;
         color: $gray;
+    }
+
+    .app-position {
+        max-width: $max-width;
+        width: 100%;
+        padding: 40px;
+        min-height: 100vh;
     }
 }
 
@@ -36,6 +82,15 @@ $gray: #AFAFAF;
     .submit {
     	margin: 10px 0 10px;
     }
+
+    .icon:before {
+        position: absolute;
+        right: 0;
+        bottom: 12px;
+        font-size: 15px;
+        color: #B3B3B3;
+        font-family: 'icomoon';
+    }
 }
 
 #feedComments {
@@ -45,16 +100,13 @@ $gray: #AFAFAF;
 
 #feedSearch {
     margin-bottom: 10px;
-}
 
-
-/* HELPERS */
-
-.max-width {
-    max-width: $max-width;
-    width: 100%;
-}
-
-.max-height {
-    min-height: 100vh;
+    .icon:before {
+        position: absolute;
+        right: 0;
+        bottom: 12px;
+        font-size: 15px;
+        color: #B3B3B3;
+        font-family: 'icomoon';
+    }
 }
