@@ -1,13 +1,42 @@
-.catalogItem {
-	border-bottom: 1px solid #ccc;
-	padding-bottom: 15px;
+$bg: #F9F9F9;
+$form-bg: #EFEFEF;
+$feed-bg: #FFF;
+$feed-border: 1px solid #F0F0F0;
+$inner-padding: 20px;
+$max-width: 960px;
 
-	img {
-		max-width: 100%;
-	}
+#main {
+	background: $bg;
+	width: 100%;
+	padding: 40px;
+	min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 
-	.description {
-		max-height: 100px;
-		overflow: hidden;
-	}
+#addCommentForm {
+	background: $form-bg;
+    padding: $inner-padding;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    max-width: $max-width;
+    margin: 0 auto;
+
+    .submit {
+    	margin: 10px 0 10px;
+    }
+}
+
+#feedComments {
+	padding: $inner-padding;
+	background: $feed-bg;
+	border: $feed-border;
+	max-width: $max-width;
+	margin: 0 auto;
+}
+
+#feedSearch {
+	margin-bottom: 10px;
 }

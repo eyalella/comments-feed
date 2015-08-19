@@ -1,24 +1,31 @@
 require('./app.scss');
 
 var React = require('react');
-var Catalog = require('./catalog/app-catalog');
-var Cart = require('./cart/app-cart');
-var Route = require('react-router-component');
-var CatalogDetail = require('./product/app-catalogdetail');
-var Template = require('./app-template');
-var Locations = Route.Locations;
-var Location = Route.Location;
+var AddComment = require('./feed-addcomment');
+var FeedComments = require('./feed-comments');
+var FeedStore = require('../stores/feed-store');
+var storeWatchMixin = require('../mixins/StoreWatchMixin');
+var injectTapEventPlugin = require('react-tap-event-plugin');
+
+//Needed for onTouchTap 
+//Can go away when react 1.0 release 
+//Check this repo: 
+//https://github.com/zilverline/react-tap-event-plugin 
+injectTapEventPlugin();
+
+function getComments() {
+	return {feed: FeedStore.getFeed()};
+}
 
 var App = React.createClass({
+	mixins: [storeWatchMixin(getComments)],
+
 	render: function() {
 		return (
-			<Template>
-				<Locations>
-					<Location path="/" handler={Catalog} />
-					<Location path="/cart" handler={Cart} />
-					<Location path="/item/:item" handler={CatalogDetail} />
-				</Locations>
-			</Template>
+			<div>
+				<AddComment />
+				<FeedComments feed={this.state.feed} />
+			</div>
 		);
 	}
 });

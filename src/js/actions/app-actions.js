@@ -2,28 +2,17 @@ var AppConstants = require('../constants/app-constants');
 var AppDispatcher = require('../dispatchers/app-dispatcher');
 
 var AppActions = {
-	addItem: function(item) {
+	addComment: function(state) {
 		AppDispatcher.handleViewAction({
-			actionType: AppConstants.ADD_ITEM,
-			item: item
+			actionType: AppConstants.ADD_COMMENT,
+			state: state
 		});
 	},
-	removeItem: function(index) {
+
+	filterResults: function(query) {
 		AppDispatcher.handleViewAction({
-			actionType: AppConstants.REMOVE_ITEM,
-			index: index
-		});
-	},
-	increaseItem: function(index) {
-		AppDispatcher.handleViewAction({
-			actionType: AppConstants.INCREACE_ITEM,
-			index: index
-		});
-	},
-	decreaseItem: function(index) {
-		AppDispatcher.handleViewAction({
-			actionType: AppConstants.DECREACE_ITEM,
-			index: index
+			actionType: AppConstants.FILTER_RESULTS,
+			query: query
 		});
 	}
 }
