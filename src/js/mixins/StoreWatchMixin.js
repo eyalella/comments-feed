@@ -1,21 +1,21 @@
-var AppStore = require('../stores/app-store');
+var FeedStore = require('../stores/feed-store');
 
 var StoreWatchMixin = function(cb) {
 	return {
 		getInitialState: function() {
-			return cb(this);
+			return cb && cb() || null;
 		},
 
 		componentWillMount: function() {
-			AppStore.addChangeListener(this.onChange);
+			FeedStore.addChangeListener(this.onChange);
 		},
 
 		componentWillUnmount: function() {
-			AppStore.removeChangeListener(this.onChange);
+			FeedStore.removeChangeListener(this.onChange);
 		},
 
 		onChange: function() {
-			this.setState(cb(this));
+			this.setState(cb && cb() || null);
 		}
 	}
 }
