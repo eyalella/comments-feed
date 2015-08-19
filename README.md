@@ -1,14 +1,13 @@
 # react-flux-stack
 
-Small project with a boilerplate setup.
+A small comments feed app built with React (Flux) Webpack and MetirialUI
 
 Include
-* React
-* Flux
-* Gulp
+* React (Flux)
+* Webpack
+* MaterialUI
 
 Install:
-
 	npm install
 
 Run Server + Watch:
