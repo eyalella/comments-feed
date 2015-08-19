@@ -56,7 +56,7 @@ gulp.task('copy', function() {
 
 /*** PRODUCTION BUILD ***/
 
-gulp.task("build", sync("set-prod-env", "webpack:build"));
+gulp.task("build", sync("set-prod-env", "webpack:build", "copy"));
 
 gulp.task("webpack:build", ["set-prod-env"], function(callback) {
   // run webpack
