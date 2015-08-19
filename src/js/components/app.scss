@@ -1,9 +1,10 @@
 $bg: #F9F9F9;
-$form-bg: #EFEFEF;
-$feed-bg: #FFF;
-$feed-border: 1px solid #F0F0F0;
+$form-bg: #FFF;
+$feed-bg: #EFEFEF;
+$form-border: 1px solid #F0F0F0;
 $inner-padding: 20px;
-$max-width: 960px;
+$max-width: 400px;
+$gray: #AFAFAF;
 
 #main {
 	background: $bg;
@@ -13,6 +14,14 @@ $max-width: 960px;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
+
+    .results-bg {
+        background-color: #fff;
+        padding: $inner-padding;
+        background: $feed-bg;
+        color: $gray;
+    }
 }
 
 #addCommentForm {
@@ -21,7 +30,7 @@ $max-width: 960px;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    max-width: $max-width;
+    border: $form-border;
     margin: 0 auto;
 
     .submit {
@@ -30,13 +39,22 @@ $max-width: 960px;
 }
 
 #feedComments {
-	padding: $inner-padding;
 	background: $feed-bg;
-	border: $feed-border;
-	max-width: $max-width;
 	margin: 0 auto;
 }
 
 #feedSearch {
-	margin-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+
+/* HELPERS */
+
+.max-width {
+    max-width: $max-width;
+    width: 100%;
+}
+
+.max-height {
+    min-height: 100vh;
 }

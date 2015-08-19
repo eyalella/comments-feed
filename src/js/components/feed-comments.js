@@ -1,5 +1,4 @@
 var React = require('react');
-var Search = require('./feed-search');
 var muiMixin = require('../mixins/muiMixin');
 var md5 = require('./md5');
 var Avatar = require('material-ui').Avatar;
@@ -14,7 +13,6 @@ var FeedResults = React.createClass({
 
 		this.props.feed.map(function(comment) {
 			comments.push(<ListItem 
-				secondaryTextLines="2"
 				primaryText={comment.email} 
 				secondaryText={comment.message} 
 				leftAvatar={<Avatar 
@@ -23,14 +21,11 @@ var FeedResults = React.createClass({
 		});
 		
 		return (
-			<div>
-				<div id="feedComments">
-					<Search />
-					<br />
-					<List>
-						{comments}
-					</List>
-				</div>
+			<div id="feedComments">
+				<br />
+				<List>
+					{comments}
+				</List>
 			</div>
 		);
 	}

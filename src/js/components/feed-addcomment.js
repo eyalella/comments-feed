@@ -3,6 +3,7 @@ var AppActions = require('../actions/app-actions');
 var muiMixin = require('../mixins/muiMixin');
 var TextField = require('material-ui').TextField;
 var FlatButton = require('material-ui').FlatButton;
+var FontIcon = require('material-ui').FontIcon;
 
 var inputOptions = {
 	hintText: 'Your Email Address',
@@ -32,16 +33,32 @@ var AddComent = React.createClass({
 		this.setState({email: e.target.value});
 	},
 
+	clearMessageInput: function() {
+		this.refs.messageInput.clearValue()
+		this.setState({message: ''});
+	},
+
 	handleSubmit: function(e) {		
 		e.preventDefault();
-		AppActions.addComment(this.state);
+		
+		if(!this.state || !this.state.email || !this.state.message) {
+			return;
+		}
+
+		var validateEmail = /^.+@.+\..+$/.test(this.state.email);
+		var validateMessage = this.state.message.length > 0;
+
+		if(validateEmail && validateMessage) {
+			AppActions.addComment(this.state);
+			this.clearMessageInput();
+		}
 	},
 
 	render: function() {
 		return (
 			<div id="addCommentForm">
-				<TextField onChange={this.handleEmailChange} {...inputOptions} required="true" />
-				<TextField onChange={this.handleMessageChange} {...textareaOptions} />
+				<TextField className="" onChange={this.handleEmailChange} {...inputOptions} required="true" />
+				<TextField ref="messageInput" onChange={this.handleMessageChange} {...textareaOptions} />
 				
 				<div className="submit">
 					<FlatButton onClick={this.handleSubmit} label="Submit" secondary={true} />
