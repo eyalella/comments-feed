@@ -41,6 +41,27 @@ gulp.task("webpack:dev-server", function(callback) {
   });
 });
 
+/*** DEVELOPMENT BUILD + WATCH ***/
+
+gulp.task("build-dev", sync("set-dev-env", "webpack:build-dev"), function() {
+  gulp.watch([paths.jsSources], ["webpack:build-dev"]); 
+});
+
+// create a single instance of the compiler to allow caching
+var devCompiler = null;
+gulp.task("webpack:build-dev", ["set-dev-env"], function(callback) {
+  if(!devCompiler){
+      devCompiler = webpack(webpackConfigGetter());
+  }
+  // run webpack
+  devCompiler.run(function(err, stats) {
+    if(err)
+      throw new gutil.PluginError("webpack:build-dev", err);
+    gutil.log("[webpack:build-dev]", stats.toString({colors: true}));
+    callback();
+  });
+});
+
 gulp.task('set-dev-env', function() {
   setEnv('DEV');
 });
@@ -56,7 +77,7 @@ gulp.task('copy', function() {
 
 /*** PRODUCTION BUILD ***/
 
-gulp.task("build", sync("set-prod-env", "webpack:build", "copy"));
+gulp.task("build", sync("set-prod-env", "webpack:build"));
 
 gulp.task("webpack:build", ["set-prod-env"], function(callback) {
   // run webpack

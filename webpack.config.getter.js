@@ -16,6 +16,10 @@ module.exports = function(BUILD_ENV){
     // add alias:path to already minified versions
   };
 
+  if(isDevelopment) {
+
+  }
+
   console.log('* Starting Webpack');
   console.log('* isProduction = ' + isProduction);
 
@@ -58,11 +62,10 @@ module.exports = function(BUILD_ENV){
       ],
       loaders: [
         {test: /\.js$/, exclude: /(node_modules|bower_components)/, loaders: ['babel-loader', 'react-map-styles']},
-        {test: /\.scss$/, loaders: ["style","css","sass?sourceMap"]},
+        {test: /\.scss$/, loaders: ["style","css?root=" + resolve("src"),"sass?sourceMap"]},
         {test: /\.css$/, loaders: ["style","css"]},
-        {test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&minetype=application/font-woff"},
-        {test: /\.(png|jpg|jpeg|gif|svg)$/, loader: 'url-loader?limit=10000'},
-        {test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader"}
+        { test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000' }
+       // {test: /\.(ttf|eot|svg|woff)$/, loader: 'file-loader?name=assets/[name].[ext]'}
       ],
       noParse : Object.keys(depPaths).map(function(k){return depPaths[k]})
     },
@@ -71,6 +74,7 @@ module.exports = function(BUILD_ENV){
     },
     resolve: {
         extensions: ['', '.js'],
+        modulesDirectories: ['node_modules', './src'],
         alias: assign({
           // custom aliases here
         }, depPaths)
