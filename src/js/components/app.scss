@@ -3,18 +3,18 @@ $form-bg: #FFF;
 $feed-bg: #EFEFEF;
 $form-border: 1px solid #F0F0F0;
 $inner-padding: 20px;
-$max-width: 560px;
+$max-width: 500px;
 $gray: #AFAFAF;
 
 /* FONT ICONS */
 
 @font-face {
     font-family: 'icomoon';
-    src:url('/assets/icomoon.eot?1hov4h');
-    src:url('/assets/icomoon.eot?#iefix1hov4h') format('embedded-opentype'),
-        url('/assets/icomoon.ttf?1hov4h') format('truetype'),
-        url('/assets/icomoon.woff?1hov4h') format('woff'),
-        url('/assets/icomoon.svg?1hov4h#icomoon') format('svg');
+    src:url('/assets/icomoon.eot');
+    src:url('/assets/icomoon.eot') format('embedded-opentype'),
+        url('/assets/icomoon.ttf') format('truetype'),
+        url('/assets/icomoon.woff') format('woff'),
+        url('/assets/icomoon.svg') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -54,6 +54,7 @@ $gray: #AFAFAF;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 0;
 
     .results-bg {
         background-color: #fff;
@@ -65,7 +66,7 @@ $gray: #AFAFAF;
     .app-position {
         max-width: $max-width;
         width: 100%;
-        padding: 40px;
+        padding: 10px;
         min-height: 100vh;
     }
 }

@@ -37,7 +37,7 @@ var App = React.createClass({
 			result = (
 				<div>
 					<h3>No posts yet...</h3>
-					<p>Go ahed and try the form to leave a comment!</p>
+					<p>Go ahead and try the form to leave a comment!</p>
 				</div>
 			)
 		}
