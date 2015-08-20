@@ -1,3 +1,5 @@
+/*eslint-disable */
+
 var Md5 = function(str) {
   //  discuss at: http://phpjs.org/functions/md5/
   // original by: Webtoolkit.info (http://www.webtoolkit.info/)
