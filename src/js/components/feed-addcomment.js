@@ -3,23 +3,21 @@ var AppActions = require('../actions/app-actions');
 var muiMixin = require('../mixins/muiMixin');
 var TextField = require('material-ui').TextField;
 var FlatButton = require('material-ui').FlatButton;
-var Dialog = require('material-ui').Dialog;
 
 var inputOptions = {
-	hintText: 'Your Email Address',
-	floatingLabelText: 'Email',
 	type: 'text',
 	rows: 1,
 	fullWidth: true
 }
 
-var textareaOptions = {
+var emailOptions = {
+	hintText: 'Your Email Address',
+	floatingLabelText: 'Email'
+}
+
+var messageOptions = {
 	hintText: 'Express yourself...',
-	floatingLabelText: 'Message',
-	type: 'text',
-	rows: 1,
-	fullWidth: true,
-	multiLine: true
+	floatingLabelText: 'Message'
 }
 
 var AddComent = React.createClass({
@@ -38,51 +36,64 @@ var AddComent = React.createClass({
 		this.setState({message: ''});
 	},
 
+	showEmailValidation: function() {
+		this.refs.emailInput.setErrorText('Please enter a valid email address');
+	},
+
+	showMessageValidation: function() {
+		this.refs.messageInput.setErrorText('Please enter a message');
+	},
+
 	handleSubmit: function(e) {		
-		e.preventDefault();
+		var valid = true;
+
+		if(e) { e.preventDefault(); }
 		
-		if(!this.state || !this.state.email || !this.state.message) {
-			this.refs.dialog.show();
-			return;
+		if(!this.state) {
+			this.showEmailValidation();
+			this.showMessageValidation();
+			valid = false;
+		} else {
+			if (!this.state.email || !/^.+@.+\..+$/.test(this.state.email)) {
+				this.showEmailValidation();
+				valid = false;
+			}
+			if(!this.state.message || this.state.message.length < 1) {
+				this.showMessageValidation();
+				valid = false;
+			}
 		}
 
-		var validateEmail = /^.+@.+\..+$/.test(this.state.email);
-		var validateMessage = this.state.message.length > 0;
-
-		if(validateEmail && validateMessage) {
+		if(valid) {
 			AppActions.addComment(this.state);
 			this.clearMessageInput();
-		} else {
-			this.refs.dialog.show()
 		}
 	},
 
 	render: function() {
-		//Standard Actions
-		var standardActions = [
-		  { text: 'Let me try again' }
-		];
 
 		return (
 			<div>
 				<div id="addCommentForm">
-					<TextField className="icon icon-envelop" onChange={this.handleEmailChange} {...inputOptions} required="true" />
-					<TextField className="icon icon-bubble" ref="messageInput" onChange={this.handleMessageChange} {...textareaOptions} />
+					<TextField 
+						className="icon icon-envelop" 
+						ref="emailInput" 
+						onChange={this.handleEmailChange} 
+						onEnterKeyDown={this.handleSubmit} 
+						{...inputOptions} 
+						{...emailOptions} />
+					<TextField 
+						className="icon icon-bubble" 
+						ref="messageInput" 
+						onChange={this.handleMessageChange} 
+						onEnterKeyDown={this.handleSubmit} 
+						{...inputOptions} 
+						{...messageOptions} />
 					
 					<div className="submit">
 						<FlatButton onClick={this.handleSubmit} label="Submit" secondary={true} />
 					</div>
 				</div>
-
-
-				<Dialog
-					ref="dialog"
-					title="Validation issue"
-					actions={standardActions}
-					actionFocus="submit">
-					Please make sure to fill the form with the correct information.<br /> <b>You must leave a valid email address and a message</b>. Thanks :)
-				</Dialog>
-
 			</div>
 		);
 	}
